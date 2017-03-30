@@ -38,7 +38,7 @@ public class BookController {
 		model.addAttribute("list", "111111");
 		// list.jsp + model = ModelAndView
 		logger.info("1111111111111111");
-		return "user/index";// WEB-INF/jsp/"list".jsp
+		return "index";
 	}
 
 //	// ajax json

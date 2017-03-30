@@ -4,6 +4,8 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>主界面</title>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <c:set var="ctx" value="${pageContext.request.contextPath}" />
     <style>
         body {
             margin: 0;
@@ -45,8 +47,8 @@
         <fieldset>
             <legend>辅助功能</legend>
             <a href="库存预警.html"><input type="button" value="库存预警"/></a>
-            <a href="密码修改.html"><input type="button" value="修改密码"/></a>
-            <a href="login.html"><input type="button" value="退出"/></a>
+            <a href="${ctx}/main/toModifyPassword?userId=${userId}"><input type="button" value="修改密码"/></a>
+            <a href="${ctx}/main/toLogin"><input type="button" value="退出"/></a>
         </fieldset>
     </form>
 </div>

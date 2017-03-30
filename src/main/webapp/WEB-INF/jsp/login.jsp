@@ -4,6 +4,8 @@
 <head lang="en">
   <meta charset="UTF-8">
   <title>登录界面</title>
+  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+  <c:set var="contextpath" value="${pageContext.request.contextPath}" />
   <style>
     body {
       margin: 0;
@@ -28,29 +30,36 @@
 <body>
 <div class="login">
   <h2>实验室耗材管理系统</h2>
-
-  <form action="">
-    <label for="username">用户名:</label><input type="text" id="username"/><br/>
-    <label for="password">密码:</label><input type="text" id="password"/><br/>
-    <input type="button" value="登录" id="login"/> &nbsp;&nbsp;&nbsp;&nbsp;
-    <input type="button" value="取消" id="exit"/>
-  </form>
+  <label for="userName">用户名:</label><input type="text" id="userName"/><br/>
+  <label for="password">密码:</label><input type="password" id="password"/><br/>
+  <input type="button" value="登录" id="login" onclick="login();"/>
+  <input type="button" value="取消" id="exit" onclick="exit();"/>
 </div>
-<script>
-  var login = document.getElementById('login');
-  var exit = document.getElementById('exit');
-  var uname = document.getElementById('username');
-  var psd = document.getElementById('password');
-
-  login.onclick = function () {
-    if (uname === 'admin' && psd === '123') {
-
+</body>
+<script type="text/javascript" src="${contextpath}/js/jquery/jquery-3.2.0.js"></script>
+<script type="text/javascript">
+  function login() {
+    var userName = $("#userName").val();
+    var password = $("#password").val();
+    if(userName==''||password==''){
+      alert("用户名和密码不能为空");
+      return;
     }
+    $.post(
+            "${contextpath}/main/login",
+            { userName: userName, password: password},
+            function(data){
+              if(data.success){
+                alert("登陆成功")
+                location.href ="${contextpath}/main/index?userId="+data.data.id;
+              }else {
+                alert(data.error);
+              }
+            });
   }
-  exit.onclick = function () {
-    uname.value = '';
-    psd.value = '';
+  function exit() {
+    $("#userName").val("")
+    $("#password").val("")
   }
 </script>
-</body>
 </html>

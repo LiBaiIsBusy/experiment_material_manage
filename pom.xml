@@ -141,7 +141,7 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<finalName>ssm</finalName>
+		<finalName>experiment_material_manage</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

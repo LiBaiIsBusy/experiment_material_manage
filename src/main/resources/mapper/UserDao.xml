@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.chaohu.hgl.dao.UserDao">
+	<!-- 目的：为dao接口方法提供sql语句配置 -->
+	<select id="queryByUserName" resultType="User" parameterType="string">
+		<!-- 具体的sql -->
+		SELECT
+			id,
+			user_name,
+			password
+		FROM
+			user
+		WHERE
+			user_name=#{userName}
+	</select>
+
+	<update id="updatePassword">
+		UPDATE user
+		SET password = #{password}
+		WHERE
+		id = #{id}
+	</update>
+
+</mapper>
