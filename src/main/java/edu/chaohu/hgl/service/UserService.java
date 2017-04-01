@@ -1,5 +1,6 @@
 package edu.chaohu.hgl.service;
 
+import edu.chaohu.hgl.dto.Result;
 import edu.chaohu.hgl.entity.User;
 
 
@@ -14,7 +15,7 @@ public interface UserService {
 	 * @param userName
 	 * @return
 	 */
-	User queryByUserName(String userName);
+	Result login(String userName,String password);
 	/**
 	 * 修改密码
 	 * @param password

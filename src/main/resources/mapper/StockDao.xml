@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.chaohu.hgl.dao.StockDao">
+	<!-- 目的：为dao接口方法提供sql语句配置 -->
+	<select id="queryAll" resultType="stock">
+		<!-- 具体的sql -->
+		SELECT
+			id,
+			product_code,
+			product_name,
+			current_number,
+			max_number,
+			mini_number
+		FROM
+			stock
+		ORDER BY id
+	</select>
+	<select id="queryOne" resultType="stock">
+		<!-- 具体的sql -->
+		SELECT
+		id,
+		product_code,
+		product_name,
+		current_number,
+		max_number,
+		mini_number
+		FROM
+		stock
+		WHERE product_code=#{productCode}
+	</select>
+	<insert id="addOne" parameterType="stock">
+		INSERT ignore INTO stock (product_code, product_name,max_number,mini_number)
+		VALUES (#{productCode},#{productName},#{maxNumber},#{miniNumber})
+	</insert>
+	<update id="updateOne" parameterType="stock">
+		UPDATE stock SET product_code=#{productCode},product_name=#{productName},max_number=#{maxNumber},mini_number=#{miniNumber}
+		WHERE product_code=#{productCode}
+	</update>
+	<delete id="deleteOne" parameterType="stock">
+		DELETE FROM stock WHERE product_code=#{productCode}
+	</delete>
+	<update id="updateCurrntNumber" parameterType="int">
+		UPDATE stock SET current_number=current_number+#{addNumber}
+		WHERE product_code=#{productCode}
+	</update>
+</mapper>

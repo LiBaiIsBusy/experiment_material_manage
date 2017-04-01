@@ -2,6 +2,7 @@ package edu.chaohu.hgl.service.impl;
 
 
 import edu.chaohu.hgl.dao.UserDao;
+import edu.chaohu.hgl.dto.Result;
 import edu.chaohu.hgl.entity.User;
 import edu.chaohu.hgl.service.UserService;
 import org.slf4j.Logger;
@@ -19,8 +20,18 @@ public class UserServiceImpl implements UserService {
 	private UserDao userDao;
 
 	@Override
-	public User queryByUserName(String userName) {
-		return userDao.queryByUserName(userName);
+	public Result login(String userName,String password) {
+		User user = userDao.queryByUserName(userName);
+		if (user!=null){
+			if (password.equals(user.getPassword())){
+				return new Result(true,user);
+			}else {
+				return new Result(false,"密码错误");
+			}
+		}else {
+			return new Result(false,"用户不存在");
+		}
+
 	}
 
 	@Override

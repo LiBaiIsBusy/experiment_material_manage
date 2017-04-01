@@ -34,9 +34,9 @@
     <form action="#">
         <fieldset>
             <legend>出入库管理</legend>
-            <a href="库存管理.html"><input type="button" value="库存管理"/></a>
-            <a href="耗材入库.html"><input type="button" value="耗材入库"/></a>
-            <a href="耗材出库.html"><input type="button" value="耗材出库"/></a>
+            <a href="${ctx}/stock/toStockManage"><input type="button" value="库存管理"/></a>
+            <a href="${ctx}/record/toAddRecord?type=RK"><input type="button" value="耗材入库"/></a>
+            <a href="${ctx}/record/toAddRecord?type=CK"><input type="button" value="耗材出库"/></a>
         </fieldset>
         <fieldset>
             <legend>查询</legend>
@@ -47,7 +47,7 @@
         <fieldset>
             <legend>辅助功能</legend>
             <a href="库存预警.html"><input type="button" value="库存预警"/></a>
-            <a href="${ctx}/main/toModifyPassword?userId=${userId}"><input type="button" value="修改密码"/></a>
+            <a href="${ctx}/main/toModifyPassword"><input type="button" value="修改密码"/></a>
             <a href="${ctx}/main/toLogin"><input type="button" value="退出"/></a>
         </fieldset>
     </form>

@@ -50,16 +50,16 @@
             { userName: userName, password: password},
             function(data){
               if(data.success){
-                alert("登陆成功")
-                location.href ="${contextpath}/main/index?userId="+data.data.id;
+                alert("登陆成功");
+                location.href ="${contextpath}/main/index";
               }else {
                 alert(data.error);
               }
             });
   }
   function exit() {
-    $("#userName").val("")
-    $("#password").val("")
+    $("#userName").val("");
+    $("#password").val("");
   }
 </script>
 </html>

@@ -32,7 +32,6 @@
     <h3>密码修改</h3>
     <fieldset>
       <legend>设置新密码</legend>
-      <input type="hidden" value="${userId}" id="userId">
       <label for="newPassword">新密码：</label><input type="password" id="newPassword"/><br/>
       <label for="newPassword2">重输：</label><input type="password" id="newPassword2"/>
     </fieldset>
@@ -52,7 +51,7 @@
     }
     $.post(
       "${ctx}/main/modifyPassword",
-    {newPassword:$("#newPassword").val(),userId:$("#userId").val()},
+    {newPassword:$("#newPassword").val()},
     function (data) {
       if (data.success){
         alert("修改成功");
