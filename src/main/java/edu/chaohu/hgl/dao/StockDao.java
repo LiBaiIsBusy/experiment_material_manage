@@ -2,6 +2,7 @@ package edu.chaohu.hgl.dao;
 
 
 import edu.chaohu.hgl.entity.Stock;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -19,6 +20,8 @@ public interface StockDao {
 	 */
 	Stock queryOne(String productCode);
 
+	Stock queryOneByName(String productName);
+
 	/**
 	 * 增加耗材
 	 * @param stock
@@ -34,12 +37,11 @@ public interface StockDao {
 	int updateOne(Stock stock);
 
 	/**
-	 * 删除耗材
-	 * @param stock
+	 * 更新库存表现有库存
+	 * @param addNumber
+	 * @param productCode
 	 * @return
 	 */
-	int deleteOne(Stock stock);
-
-	int updateCurrntNumber(int addNumber);
+	int updateCurrntNumber(@Param("addNumber")int addNumber,@Param("productCode")String productCode);
 
 }

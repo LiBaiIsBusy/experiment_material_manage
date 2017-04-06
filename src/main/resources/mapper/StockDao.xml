@@ -30,9 +30,22 @@
 		stock
 		WHERE product_code=#{productCode}
 	</select>
+	<select id="queryOneByName" resultType="stock">
+		<!-- 具体的sql -->
+		SELECT
+		id,
+		product_code,
+		product_name,
+		current_number,
+		max_number,
+		mini_number
+		FROM
+		stock
+		WHERE product_name=#{productName}
+	</select>
 	<insert id="addOne" parameterType="stock">
-		INSERT ignore INTO stock (product_code, product_name,max_number,mini_number)
-		VALUES (#{productCode},#{productName},#{maxNumber},#{miniNumber})
+		INSERT ignore INTO stock (product_code, product_name,current_number,max_number,mini_number)
+		VALUES (#{productCode},#{productName},0,#{maxNumber},#{miniNumber})
 	</insert>
 	<update id="updateOne" parameterType="stock">
 		UPDATE stock SET product_code=#{productCode},product_name=#{productName},max_number=#{maxNumber},mini_number=#{miniNumber}
@@ -41,7 +54,7 @@
 	<delete id="deleteOne" parameterType="stock">
 		DELETE FROM stock WHERE product_code=#{productCode}
 	</delete>
-	<update id="updateCurrntNumber" parameterType="int">
+	<update id="updateCurrntNumber" parameterType="stock">
 		UPDATE stock SET current_number=current_number+#{addNumber}
 		WHERE product_code=#{productCode}
 	</update>

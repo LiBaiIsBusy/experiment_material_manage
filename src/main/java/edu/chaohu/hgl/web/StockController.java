@@ -124,4 +124,17 @@ public class StockController {
 		return new Result(false,"删除失败");
 	}
 
+	@RequestMapping(value = "/queryStockByCode", method = RequestMethod.POST)
+	@ResponseBody
+	private Result queryStockByCode(HttpServletRequest request) {
+		try {
+			String productCode = request.getParameter("productName");
+			Stock stock = stockService.queryOne(productCode);
+			return new Result(true,stock);
+		} catch (Exception e) {
+			logger.error(e.getMessage(),e);
+		}
+		return new Result(false,"查询失败");
+	}
+
 }

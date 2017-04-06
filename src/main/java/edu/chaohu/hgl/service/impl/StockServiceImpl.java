@@ -28,6 +28,11 @@ public class StockServiceImpl implements StockService {
     }
 
     @Override
+    public Stock queryOneByName(String productName) {
+        return stockDao.queryOneByName(productName);
+    }
+
+    @Override
     public int addStock(Stock stock) {
         return stockDao.addOne(stock);
     }
@@ -35,10 +40,5 @@ public class StockServiceImpl implements StockService {
     @Override
     public int updateStock(Stock stock) {
         return stockDao.updateOne(stock);
-    }
-
-    @Override
-    public int deleteStock(Stock stock) {
-        return stockDao.deleteOne(stock);
     }
 }

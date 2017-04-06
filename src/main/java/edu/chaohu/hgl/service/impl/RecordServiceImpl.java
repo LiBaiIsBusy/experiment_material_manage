@@ -30,8 +30,10 @@ public class RecordServiceImpl implements RecordService {
         }else {
             updateNumber = 0-record.getUpdateNumber();
         }
-        int res = stockDao.updateCurrntNumber(record.getUpdateNumber());
+        record.setUpdateNumber(updateNumber);
+        int res = stockDao.updateCurrntNumber(record.getUpdateNumber(),record.getProductCode());
         if (res==1){
+            record.setUpdateNumber(0-updateNumber);
             return recordDao.addOne(record);
         }else {
             return 0;

@@ -32,40 +32,67 @@
 </head>
 <body>
 <div class="main">
-  <form action="#">
+  <form action="#" id="recordForm">
     <fieldset>
       <legend>耗材出库信息</legend>
-      <label for="productName">出库耗材:</label><input type="text" id="productName" name="productName" list="type"/>
-      <datalist id='type'>
-        <option value=" 计算机">
-        <option value=" 交换机">
-        <option value=" 扫描仪">
-        <option value=" 打印机">
-        <option value=" 刻录机">
-        <option value=" 路由器">
-      </datalist><br/>
-      <label for="updateDate">出库时间:</label><input type="date" name="updateDate" id="updateDate"/><br/>
-      <label for="input">现有数量:</label><input type="number" id="input" disabled="disabled"/><br/>
+      <label for="productName">入库耗材:</label>
+      <select id="productName" name="productName" onchange="changeProduct()" style="margin-top: 20px;width: 173px;height: 21px">
+        <c:forEach var="stockList" items="${stockList }">
+          <option value='${stockList.productCode}'>
+              ${stockList.productName}
+          </option>
+        </c:forEach>
+      </select><br/>
+      <label for="updateDate">出库时间:</label><input type="date" name="updateDate" id="updateDate" style="width: 173px"/><br/>
+      <label for="currentNumber">现有数量:</label><input type="number" id="currentNumber" disabled="disabled"/><br/>
       <label for="updateNumber">出库数量:</label><input type="number" name="updateNumber" id="updateNumber"/><br/>
       <input type="hidden" name="price" id="price" value="0"/>
       <input type="hidden" name="type" value="CK"/>
-      <input type="button" value="确定"/>
-      <a href="index.html"><input type="button" value="退出" id="exit"/></a>
     </fieldset>
   </form>
+    <input type="button" value="确定" onclick="addRecord();"/>
+    <a href="${ctx}/main/index"><input type="button" value="退出" id="exit"/></a>
 </div>
 </body>
 <script type="text/javascript" src="${ctx}/js/jquery/jquery-3.2.0.js"></script>
 <script type="text/javascript">
-  function addRecord() {
+  var productName = $("#productName").val();
+  $(document).ready(function(){
+    changeProduct();
+  });
+  function changeProduct() {
+      var currentNumber =$("#currentNumber");
+      $.post(
+              "${ctx}/stock/queryStockByCode",
+              {
+                  productName:productName
+              },
+              function (data) {
+                  if (data.success){
+                      currentNumber.val(data.data.currentNumber);
+                  }else {
+                      alert(data.error);
+                  }
+              }
+      );
+  }
 
+  function addRecord() {
+    var price = $("#price").val();
+    var updateDate = $("#updateDate").val();
+    var updateNumber = $("#updateNumber").val();
+    var type = $("#type").val();
+    if (productName==''||price==''||updateDate==''||updateNumber==''||type==''){
+      alert("请将表单填写完整");
+      return;
+    }
     $.post(
             "${ctx}/record/addRecord",
             $("#recordForm").serialize(),
             function (data) {
               if (data.success){
                 alert("出库成功");
-                location.href ="${ctx}/stock/toStockManage";
+                location.href ="${ctx}/main/index";
               }else {
                 alert(data.error);
               }
