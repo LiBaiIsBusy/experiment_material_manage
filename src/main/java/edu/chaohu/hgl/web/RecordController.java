@@ -14,7 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -94,6 +93,28 @@ public class RecordController {
         }else {
             return new Result(false,"出库失败");
         }
+
+	}
+
+	@RequestMapping(value = "/toInStorageOrOutStorage", method = RequestMethod.GET)
+	private String toInStorageOrOutStorage(Model model, HttpServletRequest request, HttpServletResponse response) {
+		String type = request.getParameter("type");
+		try {
+			User user = (User) request.getSession().getAttribute("user");
+			if (user==null){
+				response.sendRedirect(request.getContextPath()+"/main/toLogin");
+			}
+			List<Record> records = recordService.queryAll(type);
+			model.addAttribute("recordList",records);
+			model.addAttribute("totalNumber",records.size());
+		} catch (IOException e) {
+			logger.error(e.getMessage(),e);
+		}
+		if ("RK".equals(type)){
+			return "in_storage";
+		}else {
+			return "out_storage";
+		}
 
 	}
 

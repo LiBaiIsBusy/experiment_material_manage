@@ -40,13 +40,13 @@
         </fieldset>
         <fieldset>
             <legend>查询</legend>
-            <a href="耗材信息.html"><input type="button" value="耗材信息"/></a>
-            <a href="入库信息.html"><input type="button" value="入库信息"/></a>
-            <a href="出库信息.html"><input type="button" value="出库信息"/></a>
+            <a href="${ctx}/stock/toConsumableMaterialInfo"><input type="button" value="耗材信息"/></a>
+            <a href="${ctx}/record/toInStorageOrOutStorage?type=RK"><input type="button" value="入库信息"/></a>
+            <a href="${ctx}/record/toInStorageOrOutStorage?type=CK"><input type="button" value="出库信息"/></a>
         </fieldset>
         <fieldset>
             <legend>辅助功能</legend>
-            <a href="库存预警.html"><input type="button" value="库存预警"/></a>
+            <a href="${ctx}/stock/toStorageAlert"><input type="button" value="库存预警"/></a>
             <a href="${ctx}/main/toModifyPassword"><input type="button" value="修改密码"/></a>
             <a href="${ctx}/main/toLogin"><input type="button" value="退出"/></a>
         </fieldset>

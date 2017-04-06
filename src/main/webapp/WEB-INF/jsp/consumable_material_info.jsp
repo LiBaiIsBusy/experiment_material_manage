@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="ctx" value="${pageContext.request.contextPath}" />
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -44,97 +46,21 @@
         <td>最大库容</td>
         <td>最小库容</td>
       </tr>
-      <tr>
-        <td>001</td>
-        <td>计算机</td>
-        <td>140</td>
-        <td>300</td>
-        <td>100</td>
-      </tr>
-      <tr>
-        <td>002</td>
-        <td>交换机</td>
-        <td>13</td>
-        <td>20</td>
-        <td>5</td>
-      </tr>
-
-      <tr>
-        <td>003</td>
-        <td>扫描仪</td>
-        <td>8</td>
-        <td>20</td>
-        <td>5</td>
-      </tr>
-      <tr>
-        <td>004</td>
-        <td>打印机</td>
-        <td>8</td>
-        <td>20</td>
-        <td>4</td>
-      </tr>
-      <tr>
-        <td>005</td>
-        <td>刻录机</td>
-        <td>50</td>
-        <td>200</td>
-        <td>30</td>
-      </tr>
-      <tr>
-        <td>006</td>
-        <td>路由器</td>
-        <td>5</td>
-        <td>20</td>
-        <td>5</td>
-      </tr>
-      <tr>
-        <td>007</td>
-        <td>路由器</td>
-        <td>5</td>
-        <td>20</td>
-        <td>5</td>
-      </tr>
-      <tr>
-        <td>008</td>
-        <td>路由器</td>
-        <td>5</td>
-        <td>20</td>
-        <td>5</td>
-      </tr>
-      <tr>
-        <td>009</td>
-        <td>路由器</td>
-        <td>5</td>
-        <td>20</td>
-        <td>5</td>
-      </tr>
-      <tr>
-        <td>010</td>
-        <td>路由器</td>
-        <td>5</td>
-        <td>20</td>
-        <td>5</td>
-      </tr>
-      <tr>
-        <td>011</td>
-        <td>路由器</td>
-        <td>5</td>
-        <td>20</td>
-        <td>5</td>
-      </tr>
-      <tr>
-        <td>012</td>
-        <td>路由器</td>
-        <td>5</td>
-        <td>20</td>
-        <td>5</td>
-      </tr>
+      <c:forEach items="${stocks }" var="stocks" varStatus="i">
+        <tr>
+          <td>${stocks.productCode}</td>
+          <td>${stocks.productName}</td>
+          <td>${stocks.currentNumber}</td>
+          <td>${stocks.maxNumber}</td>
+          <td>${stocks.miniNumber}</td>
+        </tr>
+      </c:forEach>
       </tbody>
     </table>
   </div>
   <label for="number">记录总数:</label>
-  <input type="text" id="number" placeholder="12"/>
-  <a href="index.html"><input type="button" value="确定"/></a>
+  <input type="text" id="number" placeholder="${totalNumber}"/>
+  <a href="${ctx}/main/index"><input type="button" value="确定"/></a>
 </div>
 </body>
 </html>

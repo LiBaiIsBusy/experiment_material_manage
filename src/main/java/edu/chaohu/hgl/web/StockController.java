@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -135,6 +136,55 @@ public class StockController {
 			logger.error(e.getMessage(),e);
 		}
 		return new Result(false,"查询失败");
+	}
+
+	@RequestMapping(value = "/toConsumableMaterialInfo", method = RequestMethod.GET)
+	private String toConsumableMaterialInfo(Model model, HttpServletRequest request, HttpServletResponse response) {
+		try {
+			User user = (User) request.getSession().getAttribute("user");
+			if (user==null){
+				response.sendRedirect(request.getContextPath()+"/main/toLogin");
+			}
+			List<Stock> stocks = stockService.queryAllStock();
+
+			model.addAttribute("stocks",stocks);
+			model.addAttribute("totalNumber",stocks.size());
+
+		} catch (IOException e) {
+			logger.error(e.getMessage(),e);
+		}
+		return "consumable_material_info";
+	}
+
+	@RequestMapping(value = "/toStorageAlert", method = RequestMethod.GET)
+	private String toStorageAlert(Model model, HttpServletRequest request, HttpServletResponse response) {
+		try {
+			User user = (User) request.getSession().getAttribute("user");
+			if (user==null){
+				response.sendRedirect(request.getContextPath()+"/main/toLogin");
+			}
+			List<Stock> stocks = stockService.queryAllStock();
+			List<Stock> stocksTooLitle=new ArrayList<Stock>();
+			List<Stock> stocksTooMany=new ArrayList<Stock>();
+			for (Stock stock:stocks){
+				if (stock.getCurrentNumber()<stock.getMiniNumber()){
+					stocksTooLitle.add(stock);
+				}
+				if (stock.getCurrentNumber()>stock.getMaxNumber()){
+					stocksTooMany.add(stock);
+				}
+			}
+			if (stocksTooLitle.size()>0){
+				model.addAttribute("stocksTooLitle",stocksTooLitle);
+			}
+			if (stocksTooMany.size()>0){
+				model.addAttribute("stocksTooMany",stocksTooMany);
+			}
+
+		} catch (IOException e) {
+			logger.error(e.getMessage(),e);
+		}
+		return "storage_alert";
 	}
 
 }

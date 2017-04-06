@@ -8,4 +8,18 @@
 		INSERT ignore INTO record (product_code, product_name,type,update_number,update_date,price)
 		VALUES (#{productCode},#{productName},#{type},#{updateNumber},#{updateDate},#{price})
 	</insert>
+
+	<select id="queryAll" resultType="record">
+		<!-- 具体的sql -->
+		SELECT
+		product_code,
+		product_name,
+		update_number,
+		price,
+		update_date
+		FROM
+		record
+		WHERE type=#{type}
+		ORDER BY update_date DESC
+	</select>
 </mapper>

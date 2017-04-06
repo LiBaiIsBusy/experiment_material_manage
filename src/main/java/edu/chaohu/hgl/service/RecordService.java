@@ -3,6 +3,7 @@ package edu.chaohu.hgl.service;
 
 import edu.chaohu.hgl.entity.Record;
 
+import java.util.List;
 
 
 public interface RecordService {
@@ -14,4 +15,12 @@ public interface RecordService {
 	 * @return
 	 */
 	int addRecord(Record record);
+
+	/**
+	 * 查询所有入库出库信息
+	 * 判断type 区分入库出库
+	 * @param type
+	 * @return
+	 */
+	List<Record> queryAll(String type);
 }
