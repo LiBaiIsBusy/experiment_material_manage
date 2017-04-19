@@ -56,11 +56,11 @@
 </body>
 <script type="text/javascript" src="${ctx}/js/jquery/jquery-3.2.0.js"></script>
 <script type="text/javascript">
-  var productName = $("#productName").val();
   $(document).ready(function(){
     changeProduct();
   });
   function changeProduct() {
+      var productName = $("#productName").val();
       var currentNumber =$("#currentNumber");
       $.post(
               "${ctx}/stock/queryStockByCode",
@@ -78,6 +78,7 @@
   }
 
   function addRecord() {
+    var productName = $("#productName").val();
     var price = $("#price").val();
     var updateDate = $("#updateDate").val();
     var updateNumber = $("#updateNumber").val();
